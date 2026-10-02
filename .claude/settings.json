@@ -6,5 +6,8 @@
         "repo": "coreyhaines31/marketingskills"
       }
     }
+  },
+  "enabledPlugins": {
+    "marketing-skills@marketingskills": true
   }
 }
