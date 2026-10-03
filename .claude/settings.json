@@ -5,6 +5,12 @@
         "source": "github",
         "repo": "coreyhaines31/marketingskills"
       }
+    },
+    "ootto-content-skills": {
+      "source": {
+        "source": "github",
+        "repo": "Ootto-AI/claude-content-skills"
+      }
     }
   },
   "enabledPlugins": {
