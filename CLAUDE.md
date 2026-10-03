@@ -19,5 +19,6 @@
 - 브랜드 색·폰트·로고: 아직 정하지 않음. 정해지면 여기에 적는다.
 
 ## 상세 규칙
+- 영상·모션 작업 전에는 `rules/motion/camera-guide.md`와 `rules/motion/motion-system.md`를 읽는다.
 @rules/news-card.md
 @rules/reels.md
