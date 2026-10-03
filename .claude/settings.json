@@ -11,11 +11,18 @@
         "source": "github",
         "repo": "Ootto-AI/claude-content-skills"
       }
+    },
+    "naver-marketing-skills": {
+      "source": {
+        "source": "github",
+        "repo": "steveyongnam/naver-marketing-skills"
+      }
     }
   },
   "enabledPlugins": {
     "marketing-skills@marketingskills": true,
-    "claude-content-skills@ootto-content-skills": true
+    "claude-content-skills@ootto-content-skills": true,
+    "naver-marketing-skills@naver-marketing-skills": true
   },
   "statusLine": {
     "type": "command",
