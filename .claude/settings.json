@@ -14,7 +14,8 @@
     }
   },
   "enabledPlugins": {
-    "marketing-skills@marketingskills": true
+    "marketing-skills@marketingskills": true,
+    "claude-content-skills@ootto-content-skills": true
   },
   "statusLine": {
     "type": "command",

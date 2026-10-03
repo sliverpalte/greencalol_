@@ -17,3 +17,8 @@
 - 레이아웃·완성도: `design-taste-frontend`, `high-end-visual-design`
 - 스타일을 지정받으면 그 스킬만: `minimalist-ui`, `industrial-brutalist-ui` 등
 - 긴 문구·큰 숫자로 깨지지 않는지 점검: `break-ui`
+
+## 기획 (콘텐츠 플러그인 `claude-content-skills`)
+- 여러 장짜리 카드뉴스 문구·장 구성: `carousel-builder` — 1장은 스크롤을 멈추게, 마지막 장은 저장하고 싶게.
+- 캡션·해시태그: `caption-and-hashtags`
+- 플러그인 스킬은 문구·구성까지만 쓴다. 디자인과 렌더링은 이 문서를 따른다.

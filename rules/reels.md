@@ -29,6 +29,15 @@
 ## 작업 순서
 각 단계 결과물을 사용자에게 보여주고 확인받은 뒤 다음 단계로 간다.
 
+### 0. 기획 (콘텐츠 플러그인 `claude-content-skills`)
+- 레퍼런스 릴스 분석: `reel-analyzer` — 훅, 비트 구조, 템포, 화면 구성을 뜯어본다. 결과의 효과 이름은 camera-guide 번호로 다시 매핑한다.
+- 훅 문구: `viral-hook-writer` (첫 1~3초). 성과 데이터 CSV가 있으면 `hook-mining`.
+- 대본·장면 구성: `reel-scripter`(대본) 또는 `reel-builder`(대본 + 장면별 화면 구성). 여기서 나온 장면 구성을 아래 제작 단계의 입력으로 쓴다.
+- 화면 자막 문구: `on-screen-text-writer`. 데드존·한 화면 한 덩어리 규칙은 이 문서를 따른다.
+- 촬영이 필요하면: `b-roll-shot-list`.
+- 플러그인 스킬은 기획·문구까지만 쓴다. 영상 제작·모션·디자인은 이 문서와 `rules/motion/`을 따른다.
+- `content-factory`(전체 자동 실행), `comment-responder`(댓글→DM), `agent-reach`(외부 수집·다운로드)는 사용자가 명시적으로 요청할 때만 쓴다.
+
 ### 1. 디자인 기준 정하기
 - 브랜드 홈페이지·상세페이지에서 색상과 이미지를 가져온다.
 - 브랜드별 디자인 규칙을 `brands/<브랜드>/DESIGN.md`로 정리해 두고 다음 영상에도 재사용한다 (`stitch-design-taste`).
@@ -68,4 +77,4 @@
 - 렌더링 전에 중간 프레임 몇 장을 이미지로 뽑아 확인한다.
 - 렌더링 후 MP4를 사용자에게 보내고, 쓴 기법·스킬을 한 줄로 알려준다.
 - 마음에 들어 하면 장면 구성과 설정을 템플릿으로 저장해 다음 영상에 재사용한다.
-- 캡션을 요청받으면 마케팅 스킬(`social-content` 등)을 쓴다.
+- 캡션·해시태그: `caption-and-hashtags`. 커버 문구: `cover-thumbnail-brief`. 다른 플랫폼용 변환: `content-repurposer`.
