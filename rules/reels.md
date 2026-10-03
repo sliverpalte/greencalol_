@@ -49,6 +49,7 @@
 ### 2. 레퍼런스 분석
 - 레퍼런스 영상·이미지의 효과를 정확한 용어로 정리한다 (`animation-vocabulary`). 예: "통통 튀며 등장" → 팝인/스프링.
 - 정리한 효과 목록과 타이밍을 사용자에게 보여준다.
+- 코드로 만든 모션 영상 사례와 지시서 틀: `motion-references/opus-5-5-videos.md`.
 
 ### 3. 컷 편집
 - 원본 영상은 9:16으로 크롭하고 필요한 구간만 잘라 쓴다 (`remotion-markup`의 cropping / video-editing).
