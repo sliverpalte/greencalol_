@@ -9,5 +9,9 @@
   },
   "enabledPlugins": {
     "marketing-skills@marketingskills": true
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/statusline.sh\""
   }
 }
