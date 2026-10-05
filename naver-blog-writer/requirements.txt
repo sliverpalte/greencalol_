@@ -1,0 +1,5 @@
+anthropic>=1.11
+streamlit>=1.40
+beautifulsoup4>=4.12
+requests>=2.31
+playwright>=1.45
