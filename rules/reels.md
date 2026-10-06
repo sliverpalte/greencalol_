@@ -22,7 +22,8 @@
 - 자막과 핵심 문구는 이 영역을 뺀 안쪽에만 둔다.
 
 ## 제작 엔진
-- 기본은 Remotion 한 프로젝트 안에서 모든 장면·자막·오디오를 프레임 단위로 맞춘다 (`remotion-create`, `remotion-markup`).
+- 엔진 순서는 `CLAUDE.md`의 영상 제작 규칙을 따른다: Remotion(뼈대) → HyperFrames(촬영본 위 자막·그래픽, 촬영본 없으면 생략) → OpenMontage(스톡 영상·배경음악).
+- Remotion 단계에서는 Remotion 한 프로젝트 안에서 모든 장면·자막·오디오를 프레임 단위로 맞춘다 (`remotion-create`, `remotion-markup`).
   - 비트 타이밍, 효과음, 자막을 같은 프레임 기준으로 다룰 수 있어 따로 만들어 합칠 때보다 싱크가 정확하다.
 - Remotion으로 표현하기 어려운 효과만 프레임 직접 그리기로 만들어 영상 소스로 불러온다.
 - 최종 렌더링: `remotion-render`

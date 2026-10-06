@@ -18,6 +18,27 @@
 - 같은 시리즈는 색·폰트·로고 위치를 통일한다.
 - 브랜드 색·폰트·로고: 아직 정하지 않음. 정해지면 여기에 적는다.
 
+## 영상 제작 규칙 ("영상 만들어줘"라고 하면 항상 이 순서)
+1. 먼저 물어볼 것: 주제/제품, 길이, 촬영본이나 이미지 위치, 넣을 문구. 이미 말해 준 항목은 다시 묻지 않는다.
+2. 장면 구성안(장면별 문구·소스·초)을 표로 먼저 보여주고 확인을 받은 뒤에 만든다.
+3. 제작 순서
+   - Remotion (`video/`): 글자·모션·타이밍 등 영상 뼈대
+   - HyperFrames (`video/overlay/`): 촬영본 위에 자막·그래픽 얹기
+   - OpenMontage: 스톡 영상·배경음악 붙여서 마무리
+   - 촬영본이 없으면 HyperFrames 단계는 건너뛴다.
+4. 기본 규격: 9:16 세로, 1080×1920, 30fps. 자막은 크게(72px 이상), 한 줄 12자 이내. 데드존은 `rules/reels.md`를 따른다.
+5. 식품·건강 제품은 효능을 직접 말하거나 암시하는 표현(예: 면역력, 다이어트, 피로 회복, 혈당, 해독, "○○에 좋은")을 쓰지 않는다. 사용자가 준 문구에 걸리는 표현이 있으면 만들기 전에 해당 문구와 이유를 알리고 대안을 제안한다.
+6. 완성되면 MP4 저장 위치(기본 `video/out/`)를 알려주고 파일을 보낸다. 수정은 말로 받아 고친다.
+
+- 스톡 영상·배경음악은 사용 허가(라이선스)가 확인된 것만 쓰고, 출처를 함께 알려준다.
+- 이 순서가 `rules/reels.md`의 작업 순서와 겹치면 이 순서를 따르고, 세부 기준(데드존, 모션, 오디오 레벨)은 `rules/`를 따른다.
+
+### 설치 상태
+- `video/`: Remotion 4 프로젝트 (`npm run dev` 미리보기, `npx remotion render Reel out/결과.mp4`). 기본 컴포지션 `Reel` = 1080×1920, 30fps, 15초.
+- `video/overlay/`: HyperFrames 프로젝트 (세로 1080×1920). GSAP는 CDN 대신 `assets/vendor/gsap.min.js`를 쓴다. 렌더: `cd video/overlay && npx hyperframes render -o ../out/결과.mp4`.
+- HyperFrames 스킬: `/hyperframes`(입구), `hyperframes-core`, `hyperframes-animation`, `embedded-captions`, `talking-head-recut`, `media-use` 등이 `.claude/skills/`에 설치돼 있다.
+- 새 환경에서는 `cd video && npm install` 후 `npx hyperframes browser ensure`를 먼저 실행한다.
+
 ## 상세 규칙
 - 영상·모션 작업 전에는 `rules/motion/camera-guide.md`, `rules/motion/motion-system.md`, `rules/motion/production-reference.md`를 읽는다.
 @rules/news-card.md
