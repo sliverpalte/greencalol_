@@ -6,6 +6,7 @@
 모션을 만들기 전에 반드시 읽는다:
 - `rules/motion/camera-guide.md` — 카메라 움직임 23종 원본 지침 (최우선)
 - `rules/motion/motion-system.md` — 이징·길이 토큰, 23종 Remotion 구현표, 화면 디자인 원칙, 장면 레시피, 검수
+- `rules/motion/production-reference.md` — 길이별 구성, 글자 노출 시간·자막, 오디오 레벨, 렌더 설정, 데이터 장면, 레퍼런스 분석 형식 (OpenMontage 분석)
 
 ## 규격
 - 크기: 1080×1920 (9:16), 30fps. 결과물: MP4 (H.264).
