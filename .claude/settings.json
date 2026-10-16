@@ -11,11 +11,18 @@
         "source": "github",
         "repo": "Ootto-AI/claude-content-skills"
       }
+    },
+    "instagram-agent-skill": {
+      "source": {
+        "source": "github",
+        "repo": "Jakeschincariol/instagram-agent-skill"
+      }
     }
   },
   "enabledPlugins": {
     "marketing-skills@marketingskills": true,
-    "claude-content-skills@ootto-content-skills": true
+    "claude-content-skills@ootto-content-skills": true,
+    "instagram-agent@instagram-agent-skill": true
   },
   "statusLine": {
     "type": "command",
