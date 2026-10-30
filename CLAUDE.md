@@ -22,3 +22,4 @@
 - 영상·모션 작업 전에는 `rules/motion/camera-guide.md`와 `rules/motion/motion-system.md`를 읽는다.
 @rules/news-card.md
 @rules/reels.md
+@rules/video-editing.md
