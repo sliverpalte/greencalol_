@@ -1,0 +1,73 @@
+# 매일 03:00 KST: 인기 쇼츠 수집 → 순위 → 게시 문구 → 30초 영상 제작
+name: shorts-top5 · 1) 수집·영상 제작
+
+on:
+  schedule:
+    - cron: '0 18 * * *'        # UTC 18:00 = 한국 03:00
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'TEST_MODE (샘플 데이터로만 실행)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write                # 날짜별 기록 커밋 + 영상 Release 저장
+
+concurrency:
+  group: shorts-top5-build
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: shorts-top5
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TEST_MODE: ${{ inputs.test_mode && 'true' || 'false' }}
+      DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: shorts-top5/package-lock.json
+      - name: 프로그램 설치 (FFmpeg, Chromium)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: 날짜 (KST)
+        run: echo "RUN_DATE=$(TZ=Asia/Seoul date +%F)" >> "$GITHUB_ENV"
+      - name: 수집 → 순위 → 문구 → 영상
+        run: node src/pipeline.js
+      - name: 영상 보관 (GitHub Release)
+        if: success() && env.TEST_MODE != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="shorts-${RUN_DATE}"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "터진 쇼츠 TOP5 ${RUN_DATE}" --notes-file "data/${RUN_DATE}/meta.json" --latest=false
+          gh release upload "$TAG" "output/${RUN_DATE}/top5.mp4" --clobber
+      - name: 기록 커밋 (data/)
+        if: always() && env.TEST_MODE != 'true'
+        run: |
+          git config user.name "shorts-bot"
+          git config user.email "shorts-bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || (git commit -m "data: ${RUN_DATE} 수집·제작 기록" && git pull --rebase && git push)
+      - name: 결과물·로그 업로드 (Actions 탭에서 다운로드)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ env.RUN_DATE }}
+          path: |
+            shorts-top5/output/${{ env.RUN_DATE }}
+            shorts-top5/data/${{ env.RUN_DATE }}
+          retention-days: 14

@@ -1,0 +1,27 @@
+{
+  "name": "shorts-top5",
+  "version": "1.0.0",
+  "description": "오늘의 터진 쇼츠 TOP 5 자동화",
+  "scripts": {
+    "doctor": "node src/doctor.js",
+    "collect": "node src/collect.js",
+    "rank": "node src/rank.js",
+    "meta": "node src/meta.js",
+    "render": "node src/render.js --stills",
+    "daily": "node src/pipeline.js",
+    "publish": "node src/publish.js",
+    "test": "TEST_MODE=true DRY_RUN=true UPLOAD_ENABLED=false node src/pipeline.js && TEST_MODE=true DRY_RUN=true UPLOAD_ENABLED=false node src/publish.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pretendard": "^1.3.9"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  }
+}
