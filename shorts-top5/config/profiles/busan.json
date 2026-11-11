@@ -1,59 +1,345 @@
 {
-  "_설명": "부산 여행 쇼츠 TOP 5. 요일(0=일~6=토)마다 주제가 바뀝니다. TOPIC=cafe 처럼 직접 지정도 가능.",
-  "weekdays": { "0": "food", "1": "cafe", "2": "food", "3": "shop", "4": "course", "5": "foreign", "6": "cafe" },
+  "_설명": "부산 핫플 쇼츠 TOP 5. 맛집·카페·가볼만한곳·화제의 장소를 한꺼번에 찾아 매일 만듭니다. TOPIC=foreign 으로 영어 버전도 가능.",
+  "weekdays": {
+    "0": "hot",
+    "1": "hot",
+    "2": "hot",
+    "3": "hot",
+    "4": "hot",
+    "5": "hot",
+    "6": "hot"
+  },
   "base": {
     "collect": {
       "minViews": 10000,
-      "searchWindowsHours": [168, 720],
+      "searchWindowsHours": [
+        168,
+        720
+      ],
       "pagesPerQuery": 1,
-      "maxSearchCallsPerRun": 6,
-      "mustInclude": ["부산", "busan", "해운대", "광안리", "서면", "전포", "기장", "영도", "남포"]
+      "maxSearchCallsPerRun": 12,
+      "mustInclude": [
+        "부산",
+        "busan",
+        "해운대",
+        "광안리",
+        "서면",
+        "전포",
+        "기장",
+        "영도",
+        "남포"
+      ],
+      "excludeWords": [
+        "폐업",
+        "사망",
+        "사고",
+        "사건",
+        "논란",
+        "속보",
+        "뉴스",
+        "경찰",
+        "화재",
+        "태풍"
+      ]
     },
-    "rank": { "minSubscribers": 500 },
-    "video": { "accentColor": "#00A8E8", "accountName": "@부산가볼곳" },
-    "upload": { "platforms": ["youtube", "instagram", "tiktok"] }
+    "rank": {
+      "minSubscribers": 500
+    },
+    "video": {
+      "accentColor": "#00A8E8",
+      "accountName": "@부산가볼곳"
+    },
+    "upload": {
+      "platforms": [
+        "youtube",
+        "instagram",
+        "tiktok"
+      ]
+    }
   },
   "topics": {
+    "hot": {
+      "collect": {
+        "searchQueries": [
+          "부산 맛집",
+          "부산 카페",
+          "부산 가볼만한곳",
+          "부산 핫플",
+          "부산 여행"
+        ]
+      },
+      "video": {
+        "labels": {
+          "introSmall": "요즘 뜨는",
+          "introBig": "부산 핫플",
+          "header": "요즘 뜨는 부산 핫플",
+          "outroSmall": "이번 주 가장",
+          "outroBig": "핫한 부산 핫플은?",
+          "cta": "저장해두고 부산 갈 때 꺼내보세요"
+        }
+      },
+      "meta": {
+        "titlePrefix": "요즘 뜨는 부산 핫플",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#부산핫플",
+            "#부산여행",
+            "#부산맛집",
+            "#부산카페"
+          ],
+          "instagram": [
+            "#부산핫플",
+            "#부산여행",
+            "#부산맛집",
+            "#부산카페",
+            "#부산가볼만한곳",
+            "#부산데이트"
+          ],
+          "tiktok": [
+            "#부산핫플",
+            "#부산여행",
+            "#부산맛집",
+            "#fyp"
+          ]
+        }
+      }
+    },
     "cafe": {
-      "collect": { "searchQueries": ["부산 카페", "부산 카페 추천", "부산 신상카페"] },
-      "video": { "labels": { "introSmall": "요즘 뜨는", "introBig": "부산 카페", "header": "요즘 뜨는 부산 카페", "outroSmall": "이번 주 가장", "outroBig": "핫한 부산 카페는?", "cta": "저장해두고 부산 갈 때 꺼내보세요" } },
-      "meta": { "titlePrefix": "요즘 뜨는 부산 카페", "hashtags": {
-        "youtube": ["#shorts", "#부산카페", "#부산여행", "#카페추천"],
-        "instagram": ["#부산카페", "#부산카페추천", "#부산여행", "#전포카페", "#해운대카페", "#광안리카페"],
-        "tiktok": ["#부산카페", "#부산여행", "#카페추천", "#fyp"] } }
+      "collect": {
+        "searchQueries": [
+          "부산 카페",
+          "부산 카페 추천",
+          "부산 신상카페"
+        ]
+      },
+      "video": {
+        "labels": {
+          "introSmall": "요즘 뜨는",
+          "introBig": "부산 카페",
+          "header": "요즘 뜨는 부산 카페",
+          "outroSmall": "이번 주 가장",
+          "outroBig": "핫한 부산 카페는?",
+          "cta": "저장해두고 부산 갈 때 꺼내보세요"
+        }
+      },
+      "meta": {
+        "titlePrefix": "요즘 뜨는 부산 카페",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#부산카페",
+            "#부산여행",
+            "#카페추천"
+          ],
+          "instagram": [
+            "#부산카페",
+            "#부산카페추천",
+            "#부산여행",
+            "#전포카페",
+            "#해운대카페",
+            "#광안리카페"
+          ],
+          "tiktok": [
+            "#부산카페",
+            "#부산여행",
+            "#카페추천",
+            "#fyp"
+          ]
+        }
+      }
     },
     "food": {
-      "collect": { "searchQueries": ["부산 맛집", "부산 맛집 추천", "부산 현지인 맛집"] },
-      "video": { "labels": { "introSmall": "요즘 뜨는", "introBig": "부산 맛집", "header": "요즘 뜨는 부산 맛집", "outroSmall": "이번 주 가장", "outroBig": "핫한 부산 맛집은?", "cta": "저장해두고 부산 갈 때 꺼내보세요" } },
-      "meta": { "titlePrefix": "요즘 뜨는 부산 맛집", "hashtags": {
-        "youtube": ["#shorts", "#부산맛집", "#부산여행", "#맛집추천"],
-        "instagram": ["#부산맛집", "#부산맛집추천", "#부산여행", "#서면맛집", "#해운대맛집", "#광안리맛집"],
-        "tiktok": ["#부산맛집", "#부산여행", "#맛집", "#fyp"] } }
+      "collect": {
+        "searchQueries": [
+          "부산 맛집",
+          "부산 맛집 추천",
+          "부산 현지인 맛집"
+        ]
+      },
+      "video": {
+        "labels": {
+          "introSmall": "요즘 뜨는",
+          "introBig": "부산 맛집",
+          "header": "요즘 뜨는 부산 맛집",
+          "outroSmall": "이번 주 가장",
+          "outroBig": "핫한 부산 맛집은?",
+          "cta": "저장해두고 부산 갈 때 꺼내보세요"
+        }
+      },
+      "meta": {
+        "titlePrefix": "요즘 뜨는 부산 맛집",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#부산맛집",
+            "#부산여행",
+            "#맛집추천"
+          ],
+          "instagram": [
+            "#부산맛집",
+            "#부산맛집추천",
+            "#부산여행",
+            "#서면맛집",
+            "#해운대맛집",
+            "#광안리맛집"
+          ],
+          "tiktok": [
+            "#부산맛집",
+            "#부산여행",
+            "#맛집",
+            "#fyp"
+          ]
+        }
+      }
     },
     "shop": {
-      "collect": { "searchQueries": ["부산 소품샵", "부산 소품샵 추천", "부산 편집샵"] },
-      "video": { "labels": { "introSmall": "요즘 뜨는", "introBig": "부산 소품샵", "header": "요즘 뜨는 부산 소품샵", "outroSmall": "이번 주 가장", "outroBig": "핫한 소품샵은?", "cta": "저장해두고 부산 갈 때 꺼내보세요" } },
-      "meta": { "titlePrefix": "요즘 뜨는 부산 소품샵", "hashtags": {
-        "youtube": ["#shorts", "#부산소품샵", "#부산여행", "#소품샵"],
-        "instagram": ["#부산소품샵", "#부산소품샵추천", "#부산여행", "#전포소품샵", "#영도소품샵", "#소품샵"],
-        "tiktok": ["#부산소품샵", "#부산여행", "#소품샵", "#fyp"] } }
+      "collect": {
+        "searchQueries": [
+          "부산 소품샵",
+          "부산 소품샵 추천",
+          "부산 편집샵"
+        ]
+      },
+      "video": {
+        "labels": {
+          "introSmall": "요즘 뜨는",
+          "introBig": "부산 소품샵",
+          "header": "요즘 뜨는 부산 소품샵",
+          "outroSmall": "이번 주 가장",
+          "outroBig": "핫한 소품샵은?",
+          "cta": "저장해두고 부산 갈 때 꺼내보세요"
+        }
+      },
+      "meta": {
+        "titlePrefix": "요즘 뜨는 부산 소품샵",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#부산소품샵",
+            "#부산여행",
+            "#소품샵"
+          ],
+          "instagram": [
+            "#부산소품샵",
+            "#부산소품샵추천",
+            "#부산여행",
+            "#전포소품샵",
+            "#영도소품샵",
+            "#소품샵"
+          ],
+          "tiktok": [
+            "#부산소품샵",
+            "#부산여행",
+            "#소품샵",
+            "#fyp"
+          ]
+        }
+      }
     },
     "course": {
-      "collect": { "searchQueries": ["부산 여행코스", "부산 여행", "부산 가볼만한곳"] },
-      "video": { "labels": { "introSmall": "요즘 뜨는", "introBig": "부산 여행코스", "header": "요즘 뜨는 부산 여행", "outroSmall": "이번 주 가장", "outroBig": "핫한 부산 코스는?", "cta": "저장해두고 부산 갈 때 꺼내보세요" } },
-      "meta": { "titlePrefix": "요즘 뜨는 부산 여행코스", "hashtags": {
-        "youtube": ["#shorts", "#부산여행", "#부산여행코스", "#부산가볼만한곳"],
-        "instagram": ["#부산여행", "#부산여행코스", "#부산가볼만한곳", "#부산데이트", "#국내여행"],
-        "tiktok": ["#부산여행", "#부산가볼만한곳", "#국내여행", "#fyp"] } }
+      "collect": {
+        "searchQueries": [
+          "부산 여행코스",
+          "부산 여행",
+          "부산 가볼만한곳"
+        ]
+      },
+      "video": {
+        "labels": {
+          "introSmall": "요즘 뜨는",
+          "introBig": "부산 여행코스",
+          "header": "요즘 뜨는 부산 여행",
+          "outroSmall": "이번 주 가장",
+          "outroBig": "핫한 부산 코스는?",
+          "cta": "저장해두고 부산 갈 때 꺼내보세요"
+        }
+      },
+      "meta": {
+        "titlePrefix": "요즘 뜨는 부산 여행코스",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#부산여행",
+            "#부산여행코스",
+            "#부산가볼만한곳"
+          ],
+          "instagram": [
+            "#부산여행",
+            "#부산여행코스",
+            "#부산가볼만한곳",
+            "#부산데이트",
+            "#국내여행"
+          ],
+          "tiktok": [
+            "#부산여행",
+            "#부산가볼만한곳",
+            "#국내여행",
+            "#fyp"
+          ]
+        }
+      }
     },
     "foreign": {
-      "collect": { "searchQueries": ["Busan travel", "Busan things to do", "Busan Korea"], "relevanceLanguage": "en", "regionCode": "", "mustInclude": ["busan"] },
-      "rank": { "preferKorean": false },
-      "video": { "locale": "en", "labels": { "introSmall": "Trending in", "introBig": "Busan Travel", "header": "Busan Travel", "rankSuffix": "", "indexLabel": "Hot Score", "indexFormula": "views ÷ subscribers", "views": "Views", "subs": "Subs", "source": "Source: YouTube", "outroSmall": "This week's", "outroBig": "#1 in Busan?", "first": "No.1", "cta": "Save this for your Busan trip", "credit": "Source: YouTube creators" } },
-      "meta": { "titlePrefix": "Busan Travel Shorts", "hashtags": {
-        "youtube": ["#shorts", "#Busan", "#KoreaTravel", "#BusanTravel"],
-        "instagram": ["#Busan", "#BusanTravel", "#KoreaTravel", "#VisitKorea", "#부산여행", "#TravelKorea"],
-        "tiktok": ["#Busan", "#KoreaTravel", "#travel", "#fyp"] } }
+      "collect": {
+        "searchQueries": [
+          "Busan travel",
+          "Busan things to do",
+          "Busan Korea"
+        ],
+        "relevanceLanguage": "en",
+        "regionCode": "",
+        "mustInclude": [
+          "busan"
+        ]
+      },
+      "rank": {
+        "preferKorean": false
+      },
+      "video": {
+        "locale": "en",
+        "labels": {
+          "introSmall": "Trending in",
+          "introBig": "Busan Travel",
+          "header": "Busan Travel",
+          "rankSuffix": "",
+          "indexLabel": "Hot Score",
+          "indexFormula": "views ÷ subscribers",
+          "views": "Views",
+          "subs": "Subs",
+          "source": "Source: YouTube",
+          "outroSmall": "This week's",
+          "outroBig": "#1 in Busan?",
+          "first": "No.1",
+          "cta": "Save this for your Busan trip",
+          "credit": "Source: YouTube creators"
+        }
+      },
+      "meta": {
+        "titlePrefix": "Busan Travel Shorts",
+        "hashtags": {
+          "youtube": [
+            "#shorts",
+            "#Busan",
+            "#KoreaTravel",
+            "#BusanTravel"
+          ],
+          "instagram": [
+            "#Busan",
+            "#BusanTravel",
+            "#KoreaTravel",
+            "#VisitKorea",
+            "#부산여행",
+            "#TravelKorea"
+          ],
+          "tiktok": [
+            "#Busan",
+            "#KoreaTravel",
+            "#travel",
+            "#fyp"
+          ]
+        }
+      }
     }
   }
 }

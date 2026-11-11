@@ -143,7 +143,7 @@
 
 ## 10. 주제(시리즈) 추가 — 부산 여행 쇼츠
 - `config/profiles/busan.json`: 유튜브에서 "부산 카페/맛집/소품샵/여행코스/Busan travel" 키워드로 최근 7일(부족하면 30일) 인기 쇼츠 TOP 5.
-- 요일별 주제: 월 카페 · 화 맛집 · 수 소품샵 · 목 여행코스 · 금 외국인용(영어) · 토 카페 · 일 맛집 (`weekdays`에서 변경)
+- 매일 "부산 핫플": 맛집·카페·가볼만한곳·핫플·여행 키워드를 한꺼번에 찾아 TOP 5. 뉴스·사건사고성 영상은 `excludeWords`로 제외. 영어 버전은 `topic: foreign` 으로 수동 실행.
 - 영상은 Releases에 `busan-<날짜>` 로, 기존 시리즈는 `shorts-<날짜>` 로 따로 저장됩니다.
 - 새 시리즈를 만들려면 `busan.json`을 복사해 키워드·문구만 바꾸고, 워크플로의 `matrix.profile`에 이름을 추가하세요.
 - 수동 실행 시 `topic`에 cafe/food/shop/course/foreign 를 넣으면 그 주제로 바로 만들어 봅니다.

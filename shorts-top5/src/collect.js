@@ -119,6 +119,10 @@ async function collect() {
       return words.some(w => t.includes(w));
     });
   }
+  // 제외 단어: 뉴스·사건사고성 영상 빼기 (excludeWords)
+  if (C.excludeWords?.length) {
+    videos = videos.filter(v => !C.excludeWords.some(w => (v.snippet.title + ' ' + (v.snippet.tags || []).join(' ')).includes(w)));
+  }
   log(`조회수·길이·키워드 필터 후 ${videos.length}개`);
 
   if (C.verifyShortsUrl) {
