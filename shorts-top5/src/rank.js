@@ -9,7 +9,7 @@ const USED = path.join(dataRoot, 'featured-videos.json'); // 이미 소개한 �
 function displayTitle(t, max = 30) {
   let s = (t || '')
     .replace(/#[^\s#]+/g, ' ')
-    .replace(/[\p{Extended_Pictographic}️‍]/gu, '')
+    .replace(/[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\uFE0F\u200D]/gu, '')
     .replace(/\s*[\[(【].{0,12}?[\])】]\s*$/u, '')
     .replace(/[|｜].*$/, '')
     .replace(/\s+/g, ' ').trim();
