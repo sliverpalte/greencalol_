@@ -21,7 +21,34 @@ const env = {
   TEST_MODE: bool(process.env.TEST_MODE, false),
 };
 
-const settings = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'settings.json'), 'utf8'));
+// KST 기준 날짜 (YYYY-MM-DD)
+function kstDate(d = new Date()) {
+  return new Date(d.getTime() + 9 * 3600e3).toISOString().slice(0, 10);
+}
+
+// 주제(프로필): PROFILE=busan 이면 config/profiles/busan.json 을 기본 설정 위에 덮어씀.
+// 프로필 안에서 요일별 주제(weekdays)를 고르고, TOPIC=cafe 처럼 직접 지정할 수도 있음.
+const PROFILE = process.env.PROFILE || 'default';
+function merge(a, b) {
+  if (Array.isArray(b) || typeof b !== 'object' || b === null) return b;
+  const out = { ...(a || {}) };
+  for (const k of Object.keys(b)) out[k] = merge(out[k], b[k]);
+  return out;
+}
+const settings = (() => {
+  let s = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'settings.json'), 'utf8'));
+  if (PROFILE === 'default') return { ...s, topic: null };
+  const prof = JSON.parse(fs.readFileSync(path.join(ROOT, 'config', 'profiles', `${PROFILE}.json`), 'utf8'));
+  s = merge(s, prof.base || {});
+  const date = process.env.RUN_DATE || kstDate();
+  const dow = new Date(`${date}T12:00:00+09:00`).getDay();
+  const topic = process.env.TOPIC || prof.weekdays?.[String(dow)];
+  if (topic) {
+    if (!prof.topics?.[topic]) throw new Error(`프로필 ${PROFILE}에 주제 ${topic} 없음`);
+    s = merge(s, prof.topics[topic]);
+  }
+  return { ...s, topic };
+})();
 
 // 로그에 비밀값이 섞여 나오지 않도록 가린다
 const SECRET_KEYS = ['YOUTUBE_API_KEY', 'YT_CLIENT_SECRET', 'YT_REFRESH_TOKEN', 'YT_CLIENT_ID',
@@ -35,14 +62,13 @@ function mask(s) {
   return out.replace(/(key|access_token|refresh_token|client_secret)=([^&\s"]+)/gi, '$1=***');
 }
 
-// KST 기준 날짜 (YYYY-MM-DD)
-function kstDate(d = new Date()) {
-  return new Date(d.getTime() + 9 * 3600e3).toISOString().slice(0, 10);
-}
 const RUN_DATE = process.env.RUN_DATE || kstDate();
 
-const dataDir = (date = RUN_DATE) => path.join(ROOT, 'data', date);
-const outDir = (date = RUN_DATE) => path.join(ROOT, 'output', date);
+// 기본 프로필은 data/<날짜>, 다른 프로필은 data/<프로필>/<날짜>
+const dataRoot = PROFILE === 'default' ? path.join(ROOT, 'data') : path.join(ROOT, 'data', PROFILE);
+const outRoot = PROFILE === 'default' ? path.join(ROOT, 'output') : path.join(ROOT, 'output', PROFILE);
+const dataDir = (date = RUN_DATE) => path.join(dataRoot, date);
+const outDir = (date = RUN_DATE) => path.join(outRoot, date);
 
 let logFile = null;
 function setLogFile(name) {
@@ -101,5 +127,5 @@ async function main(stage, fn) {
   catch (e) { log(`❌ ${stage} 실패: ${e.message}`); writeErrorReport(stage, e); process.exitCode = 1; }
 }
 
-module.exports = { ROOT, env, settings, mask, kstDate, RUN_DATE, dataDir, outDir, setLogFile, log,
+module.exports = { ROOT, PROFILE, dataRoot, env, settings, mask, kstDate, RUN_DATE, dataDir, outDir, setLogFile, log,
   readJson, writeJson, sleep, fetchRetry, fetchJson, writeErrorReport, main };

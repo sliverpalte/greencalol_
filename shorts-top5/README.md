@@ -140,3 +140,10 @@
 - `video.accentColor`, `video.accountName`: 강조색, 화면에 표시할 계정명
 - `meta.hashtags`: 플랫폼별 해시태그
 - 실행 시각: `.github/workflows/shorts-daily-*.yml`의 `cron` (UTC 기준, 한국시간 −9시간)
+
+## 10. 주제(시리즈) 추가 — 부산 여행 쇼츠
+- `config/profiles/busan.json`: 유튜브에서 "부산 카페/맛집/소품샵/여행코스/Busan travel" 키워드로 최근 7일(부족하면 30일) 인기 쇼츠 TOP 5.
+- 요일별 주제: 월 카페 · 화 맛집 · 수 소품샵 · 목 여행코스 · 금 외국인용(영어) · 토 카페 · 일 맛집 (`weekdays`에서 변경)
+- 영상은 Releases에 `busan-<날짜>` 로, 기존 시리즈는 `shorts-<날짜>` 로 따로 저장됩니다.
+- 새 시리즈를 만들려면 `busan.json`을 복사해 키워드·문구만 바꾸고, 워크플로의 `matrix.profile`에 이름을 추가하세요.
+- 수동 실행 시 `topic`에 cafe/food/shop/course/foreign 를 넣으면 그 주제로 바로 만들어 봅니다.

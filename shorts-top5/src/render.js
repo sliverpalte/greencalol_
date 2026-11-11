@@ -8,10 +8,10 @@ const { settings, RUN_DATE, dataDir, outDir, setLogFile, log, readJson, writeJso
 
 const V = settings.video;
 
-async function thumbDataUrl(url) {
+async function thumbDataUrl(url, quiet = false) {
   if (!url) return null;
   try {
-    const res = await fetchRetry(url, {}, { tries: 3, label: 'thumbnail' });
+    const res = await fetchRetry(url, {}, { tries: quiet ? 1 : 3, label: 'thumbnail' });
     if (!res.ok) return null;
     const buf = Buffer.from(await res.arrayBuffer());
     return `data:${res.headers.get('content-type') || 'image/jpeg'};base64,${buf.toString('base64')}`;
@@ -35,12 +35,20 @@ async function render({ stills = [] } = {}) {
   const t0 = Date.now();
 
   const items = [];
-  for (const t of ranking.top) items.push({ ...t, thumb: await thumbDataUrl(t.thumbnail) });
+  // 쇼츠 세로 원본 썸네일(1080×1920, oar2)을 먼저 시도 → 없으면 API 썸네일(1280×720)
+  for (const t of ranking.top) {
+    const vertical = t.videoId && !t.videoId.startsWith('SAMPLE') ? await thumbDataUrl(`https://i.ytimg.com/vi/${t.videoId}/oar2.jpg`, true) : null;
+    items.push({ ...t, thumb: vertical || await thumbDataUrl(t.thumbnail) });
+  }
   const [y, mo, d] = RUN_DATE.split('-');
-  const dow = '일월화수목금토'[new Date(`${RUN_DATE}T12:00:00+09:00`).getDay()];
+  const dowN = new Date(`${RUN_DATE}T12:00:00+09:00`).getDay();
+  const en = V.locale === 'en';
+  const dateLabel = en
+    ? `${['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dowN]}, ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][+mo - 1]} ${+d}, ${y}`
+    : `${y}. ${+mo}. ${+d}. (${'일월화수목금토'[dowN]})`;
   const data = {
     items, fps: V.fps, totalFrames: V.fps * V.durationSec, accent: V.accentColor, accountName: V.accountName, blurThumbBg: V.blurThumbnailBackground !== false,
-    dateLabel: `${y}. ${+mo}. ${+d}. (${dow})`, isSample: ranking.isSample,
+    dateLabel, labels: V.labels, locale: V.locale || 'ko', isSample: ranking.isSample,
     fontBase: 'file://' + path.join(ROOT, 'node_modules', 'pretendard', 'dist', 'web', 'static', 'woff2'),
   };
 
@@ -67,7 +75,7 @@ async function render({ stills = [] } = {}) {
     const fadeStart = V.durationSec - 1.5;
     args.push('-filter_complex', `[1:a]volume=${music ? V.music.volume : 1},afade=t=in:d=0.5,afade=t=out:st=${fadeStart}:d=1.5,atrim=0:${V.durationSec}[a]`,
       '-map', '0:v', '-map', '[a]',
-      '-c:v', 'libx264', '-preset', 'medium', '-crf', String(V.crf), '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.1',
+      '-c:v', 'libx264', '-preset', 'slow', '-tune', 'animation', '-crf', String(V.crf), '-maxrate', '20M', '-bufsize', '40M', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-level', '4.1',
       '-r', String(V.fps), '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-t', String(V.durationSec), '-movflags', '+faststart', out);
 
     const ff = spawn('ffmpeg', args, { stdio: ['pipe', 'inherit', 'pipe'] });
@@ -77,7 +85,7 @@ async function render({ stills = [] } = {}) {
 
     const total = data.totalFrames, batch = 15;
     for (let f = 0; f < total; f += batch) {
-      const frames = await page.evaluate(([a, b]) => window.renderBatch(a, b), [f, Math.min(batch, total - f)]);
+      const frames = await page.evaluate(([a, b]) => window.renderBatch(a, b, 0.98), [f, Math.min(batch, total - f)]);
       for (const b64 of frames) {
         if (!ff.stdin.write(Buffer.from(b64, 'base64'))) await new Promise(r => ff.stdin.once('drain', r));
       }

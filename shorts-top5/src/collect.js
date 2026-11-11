@@ -8,7 +8,7 @@
 //    2) (선택) https://www.youtube.com/shorts/<id> 요청 시 200이면 쇼츠, /watch로 리다이렉트되면 일반 영상
 //       → 비공식 방법이라 유튜브가 바꾸면 깨질 수 있음. 실패하면 1)만으로 판단.
 //    3) 세로 영상인지는 API로 알 수 없음(공개 필드 없음) — 한계로 남김.
-const { env, settings, RUN_DATE, dataDir, setLogFile, log, readJson, writeJson, fetchJson, main, ROOT } = require('./lib/common');
+const { env, settings, RUN_DATE, dataDir, setLogFile, log, readJson, writeJson, fetchJson, main, ROOT , dataRoot } = require('./lib/common');
 const path = require('path');
 
 const C = settings.collect;
@@ -49,7 +49,9 @@ async function searchIds(hours) {
     for (let p = 0; p < C.pagesPerQuery; p++) {
       if (calls >= C.maxSearchCallsPerRun) { log(`  검색 호출 상한(${C.maxSearchCallsPerRun}) 도달`); return ids; }
       const params = { part: 'id', type: 'video', videoDuration: 'short', order: 'viewCount', maxResults: 50,
-        publishedAfter: after, regionCode: C.regionCode, relevanceLanguage: C.relevanceLanguage };
+        publishedAfter: after };
+      if (C.regionCode) params.regionCode = C.regionCode;
+      if (C.relevanceLanguage) params.relevanceLanguage = C.relevanceLanguage;
       if (q) params.q = q;
       if (pageToken) params.pageToken = pageToken;
       const r = await yt('search', params, 100);
@@ -109,7 +111,15 @@ async function collect() {
 
   let videos = [...seen.values()].filter(v => +v.statistics.viewCount >= C.minViews
     && isoDurSec(v.contentDetails.duration) <= C.maxShortDurationSec);
-  log(`조회수·길이 필터 후 ${videos.length}개`);
+  // 주제 키워드 필터: 제목·설명·태그에 mustInclude 단어 중 하나는 있어야 함 (예: '부산')
+  if (C.mustInclude?.length) {
+    const words = C.mustInclude.map(w => w.toLowerCase());
+    videos = videos.filter(v => {
+      const t = [v.snippet.title, v.snippet.description, ...(v.snippet.tags || [])].join(' ').toLowerCase();
+      return words.some(w => t.includes(w));
+    });
+  }
+  log(`조회수·길이·키워드 필터 후 ${videos.length}개`);
 
   if (C.verifyShortsUrl) {
     // 조회수 높은 순으로 최대 150개만, 10개씩 동시에 확인 (속도)
@@ -159,9 +169,9 @@ async function collect() {
     isSample: false, quota, candidates });
   log(`✅ 후보 ${candidates.length}개 저장, API 사용량 약 ${quota.units} units (일일 한도 10,000)`, quota.calls);
 
-  const usage = readJson(path.join(ROOT, 'data', 'api-usage.json'), {});
+  const usage = readJson(path.join(dataRoot, 'api-usage.json'), {});
   usage[RUN_DATE] = { youtubeUnits: quota.units, calls: quota.calls };
-  writeJson(path.join(ROOT, 'data', 'api-usage.json'), usage);
+  writeJson(path.join(dataRoot, 'api-usage.json'), usage);
 }
 
 if (require.main === module) main('수집', collect);
