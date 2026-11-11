@@ -33,7 +33,7 @@ const hasHangul = s => /[가-힣]/.test(s || '');
 
 async function isShortsUrl(id) {
   try {
-    const res = await fetch(`https://www.youtube.com/shorts/${id}`, { method: 'HEAD', redirect: 'manual' });
+    const res = await fetch(`https://www.youtube.com/shorts/${id}`, { method: 'HEAD', redirect: 'manual', signal: AbortSignal.timeout(8000) });
     if (res.status === 200) return true;
     if (res.status >= 300 && res.status < 400) return false;
     return null; // 판단 불가
@@ -112,11 +112,18 @@ async function collect() {
   log(`조회수·길이 필터 후 ${videos.length}개`);
 
   if (C.verifyShortsUrl) {
+    // 조회수 높은 순으로 최대 150개만, 10개씩 동시에 확인 (속도)
+    videos.sort((a, b) => b.statistics.viewCount - a.statistics.viewCount);
+    videos = videos.slice(0, 150);
     const kept = [];
-    for (const v of videos) {
-      const s = await isShortsUrl(v.id);
-      v._shortsCheck = s === null ? 'unknown' : s ? 'shorts' : 'not-shorts';
-      if (s !== false) kept.push(v);
+    for (let i = 0; i < videos.length; i += 10) {
+      const chunk = videos.slice(i, i + 10);
+      const res = await Promise.all(chunk.map(v => isShortsUrl(v.id)));
+      chunk.forEach((v, j) => {
+        const s = res[j];
+        v._shortsCheck = s === null ? 'unknown' : s ? 'shorts' : 'not-shorts';
+        if (s !== false) kept.push(v);
+      });
     }
     log(`/shorts/ URL 확인 후 ${kept.length}개 (일반 영상 ${videos.length - kept.length}개 제외)`);
     videos = kept;
