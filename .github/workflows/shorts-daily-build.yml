@@ -10,6 +10,9 @@ on:
         description: 'TEST_MODE (샘플 데이터로만 실행)'
         type: boolean
         default: false
+      topic:
+        description: '부산 주제 직접 지정 (cafe/food/shop/course/foreign, 비우면 요일별)'
+        required: false
 
 permissions:
   contents: write                # 날짜별 기록 커밋 + 영상 Release 저장
@@ -25,8 +28,18 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        profile: [default, busan]   # default = 오늘의 터진 쇼츠, busan = 부산 카페·맛집·소품샵·코스(요일별)
     timeout-minutes: 30
     env:
+      PROFILE: ${{ matrix.profile }}
+      OUT: ${{ matrix.profile == 'default' && 'output' || format('output/{0}', matrix.profile) }}
+      DATA: ${{ matrix.profile == 'default' && 'data' || format('data/{0}', matrix.profile) }}
+      TAG_PREFIX: ${{ matrix.profile == 'default' && 'shorts' || matrix.profile }}
+      TOPIC: ${{ inputs.topic }}
       TEST_MODE: ${{ inputs.test_mode && 'true' || 'false' }}
       DRY_RUN: ${{ vars.DRY_RUN || 'true' }}
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
@@ -52,22 +65,22 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="shorts-${RUN_DATE}"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "터진 쇼츠 TOP5 ${RUN_DATE}" --notes-file "data/${RUN_DATE}/meta.json" --latest=false
-          gh release upload "$TAG" "output/${RUN_DATE}/top5.mp4" --clobber
+          TAG="${TAG_PREFIX}-${RUN_DATE}"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "${TAG_PREFIX} TOP5 ${RUN_DATE}" --notes-file "${DATA}/${RUN_DATE}/meta.json" --latest=false
+          gh release upload "$TAG" "${OUT}/${RUN_DATE}/top5.mp4" --clobber
       - name: 기록 커밋 (data/)
         if: always() && env.TEST_MODE != 'true'
         run: |
           git config user.name "shorts-bot"
           git config user.email "shorts-bot@users.noreply.github.com"
           git add data
-          git diff --cached --quiet || (git commit -m "data: ${RUN_DATE} 수집·제작 기록" && git pull --rebase && git push)
+          git diff --cached --quiet || (git commit -m "data(${PROFILE}): ${RUN_DATE} 수집·제작 기록" && for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done)
       - name: 결과물·로그 업로드 (Actions 탭에서 다운로드)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-${{ env.RUN_DATE }}
+          name: build-${{ matrix.profile }}-${{ env.RUN_DATE }}
           path: |
-            shorts-top5/output/${{ env.RUN_DATE }}
-            shorts-top5/data/${{ env.RUN_DATE }}
+            shorts-top5/${{ env.OUT }}/${{ env.RUN_DATE }}
+            shorts-top5/${{ env.DATA }}/${{ env.RUN_DATE }}
           retention-days: 14

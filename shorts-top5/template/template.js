@@ -9,6 +9,7 @@
   const cv = document.getElementById('c');
   const ctx = cv.getContext('2d');
   let D = null;           // 데이터
+  let L = {};             // 화면 문구 (settings.video.labels)
   const imgs = {};        // rank -> Image
 
   // ── 이징 (rules/motion 토큰) ──────────────────────────────
@@ -35,12 +36,17 @@
   // ── 포맷 ─────────────────────────────────────────────────
   function kNum(n) {
     if (n == null) return '-';
+    if (D.locale === 'en') {
+      if (n >= 1e6) return trim(n / 1e6) + 'M';
+      if (n >= 1e3) return trim(n / 1e3) + 'K';
+      return String(n);
+    }
     if (n >= 1e8) return trim(n / 1e8) + '억';
     if (n >= 1e4) return trim(n / 1e4) + '만';
     return n.toLocaleString('ko-KR');
   }
   const trim = v => (v >= 100 ? Math.round(v) : Math.round(v * 10) / 10).toString();
-  const idxStr = v => (v >= 100 ? Math.round(v).toLocaleString('ko-KR') : v.toFixed(1));
+  const idxStr = v => (v >= 100 ? Math.round(v).toLocaleString('en-US') : v.toFixed(1));
   const FONT = (w, s) => `${w} ${s}px Pretendard`;
 
   // ── 그리기 도우미 ─────────────────────────────────────────
@@ -148,7 +154,7 @@
     background(f, null);
     const out = easeInOut(prog(f, len - 9, 9));          // 퇴장 0.3초
     ctx.save(); ctx.globalAlpha = 1 - out; ctx.translate(-160 * out, 0);
-    const words = [['오늘의', 84, 700, '#fff'], ['터진 쇼츠', 150, 900, '#fff']];
+    const words = [[L.introSmall, 84, 700, '#fff'], [L.introBig, 150, 900, '#fff']];
     let y = 600;
     words.forEach(([w, s, wt, c], i) => {
       const p = easeOut(prog(f, 2 + i * 3, 12));         // 단어 단위 키네틱 타이포
@@ -182,7 +188,7 @@
     ctx.translate(-180 * out, 0);
 
     // 상단 머리말 + 진행 점
-    text(`오늘의 터진 쇼츠 TOP ${D.items.length}`, SAFE.l, SAFE.t + 30, { size: 36, weight: 700, color: 'rgba(255,255,255,.7)' });
+    text(`${L.header} TOP ${D.items.length}`, SAFE.l, SAFE.t + 30, { size: 36, weight: 700, color: 'rgba(255,255,255,.7)' });
     D.items.forEach((_, i) => {
       const active = i === order;
       ctx.fillStyle = active ? D.accent : 'rgba(255,255,255,.25)';
@@ -192,7 +198,7 @@
     // 썸네일 카드 (오른쪽에서 밀려 들어옴)
     const tx = SAFE.l + (1 - inP) * 140, ty = 370, tw = 380, th = 676;
     thumbCard(item, tx, ty, tw, th, inP);
-    text('출처: YouTube', tx + 20, ty + th - 22, { size: 24, weight: 600, color: 'rgba(255,255,255,.85)', alpha: inP });
+    text(L.source, tx + 20, ty + th - 22, { size: 24, weight: 600, color: 'rgba(255,255,255,.85)', alpha: inP });
 
     // 순위 숫자 팝인
     const cx = 520;
@@ -202,16 +208,16 @@
     ctx.font = FONT(900, 300);
     const rw = ctx.measureText(String(item.rank)).width;
     text(String(item.rank), 0, 0, { size: 300, weight: 900, color: item.rank === 1 ? D.accent : '#fff', track: -8 });
-    text('위', rw + 6, -12, { size: 96, weight: 800, color: '#fff' });
+    text(L.rankSuffix, rw + 6, -12, { size: 96, weight: 800, color: '#fff' });
     ctx.restore();
 
     // 인기 지수 (가장 크게, 강조색, 카운트업)
     const ip = easeOut(prog(f, 12, 30));
     const lp = easeOut(prog(f, 10, 12));
-    text('인기 지수', cx, 760 + (1 - lp) * 20, { size: 38, weight: 700, color: 'rgba(255,255,255,.7)', alpha: lp });
+    text(L.indexLabel, cx, 760 + (1 - lp) * 20, { size: 38, weight: 700, color: 'rgba(255,255,255,.7)', alpha: lp });
     const val = item.popularityIndex * ip;
     text(idxStr(val), cx, 900 + (1 - lp) * 20, { size: 140, weight: 900, color: D.accent, alpha: lp, maxW: SAFE.r - cx, track: -4 });
-    text('조회수 ÷ 구독자', cx, 960, { size: 28, weight: 500, color: 'rgba(255,255,255,.5)', alpha: lp });
+    text(L.indexFormula, cx, 960, { size: 28, weight: 500, color: 'rgba(255,255,255,.5)', alpha: lp });
 
     // 아래: 채널명, 제목, 수치
     const cp = easeOut(prog(f, 14, 14));
@@ -226,7 +232,7 @@
     rrect(SAFE.l, 1320, SAFE.r - SAFE.l, 110, 24); ctx.fillStyle = 'rgba(255,255,255,.09)'; ctx.fill();
     ctx.restore();
     const half = (SAFE.r - SAFE.l) / 2;
-    [['조회수', kNum(Math.round(item.views * easeOut(prog(f, 24, 24))))], ['구독자', kNum(item.subscribers)]].forEach(([k, v], i) => {
+    [[L.views, kNum(Math.round(item.views * easeOut(prog(f, 24, 24))))], [L.subs, kNum(item.subscribers)]].forEach(([k, v], i) => {
       const x = SAFE.l + 36 + i * half;
       text(k, x, 1388 + (1 - sp) * 20, { size: 32, weight: 600, color: 'rgba(255,255,255,.6)', alpha: sp });
       text(v, x + 112, 1392 + (1 - sp) * 20, { size: 52, weight: 800, alpha: sp });
@@ -239,11 +245,11 @@
     const first = D.items[0];
     background(f, first);
     const p1 = easeOut(prog(f, 0, 14));
-    text('오늘 가장', SAFE.l, 400 + (1 - p1) * 40, { size: 84, weight: 700, alpha: p1 });
+    text(L.outroSmall, SAFE.l, 400 + (1 - p1) * 40, { size: 84, weight: 700, alpha: p1 });
     const p2 = easeOut(prog(f, 3, 14));
     ctx.save(); ctx.globalAlpha = p2;
     ctx.font = FONT(900, 120);
-    text('터진 쇼츠는?', SAFE.l, 540 + (1 - p2) * 40, { size: 120, weight: 900, color: D.accent, track: -3 });
+    text(L.outroBig, SAFE.l, 540 + (1 - p2) * 40, { size: 120, weight: 900, color: D.accent, track: -3 });
     ctx.restore();
 
     const cp = springPop(prog(f, 12, 22));
@@ -254,15 +260,15 @@
     ctx.restore();
     const ip = easeOut(prog(f, 18, 14));
     const rx = tx + tw + 44;
-    text('1위', rx, ty + 80 + (1 - ip) * 20, { size: 64, weight: 900, color: D.accent, alpha: ip });
+    text(L.first, rx, ty + 80 + (1 - ip) * 20, { size: 64, weight: 900, color: D.accent, alpha: ip });
     text(first.channelTitle, rx, ty + 160, { size: 44, weight: 800, alpha: ip, maxW: SAFE.r - rx });
     wrap(first.displayTitle, SAFE.r - rx, 3, FONT(600, 36)).forEach((l, i) =>
       text(l, rx, ty + 230 + i * 50, { size: 36, weight: 600, color: 'rgba(255,255,255,.75)', alpha: ip }));
-    text(`인기 지수 ${idxStr(first.popularityIndex)}`, rx, ty + 450, { size: 44, weight: 800, color: D.accent, alpha: ip, maxW: SAFE.r - rx });
+    text(`${L.indexLabel} ${idxStr(first.popularityIndex)}`, rx, ty + 450, { size: 44, weight: 800, color: D.accent, alpha: ip, maxW: SAFE.r - rx });
 
     const ap = easeOut(prog(f, 28, 14));
-    text('저장해두고 내일도 확인하세요', SAFE.l, 1290 + (1 - ap) * 20, { size: 50, weight: 800, alpha: ap });
-    text(`${D.accountName}  ·  출처: YouTube 각 채널`, SAFE.l, 1360, { size: 32, weight: 600, color: 'rgba(255,255,255,.6)', alpha: ap, maxW: SAFE.r - SAFE.l });
+    text(L.cta, SAFE.l, 1290 + (1 - ap) * 20, { size: 50, weight: 800, alpha: ap });
+    text(`${D.accountName}  ·  ${L.credit}`, SAFE.l, 1360, { size: 32, weight: 600, color: 'rgba(255,255,255,.6)', alpha: ap, maxW: SAFE.r - SAFE.l });
   }
 
   // ── 타임라인 ──────────────────────────────────────────────
@@ -282,6 +288,7 @@
   let scenes = [];
   window.setup = async (data) => {
     D = data;
+    L = data.labels;
     const fontBase = data.fontBase;
     for (const [w, file] of [[500, 'Medium'], [600, 'SemiBold'], [700, 'Bold'], [800, 'ExtraBold'], [900, 'Black']]) {
       const ff = new FontFace('Pretendard', `url(${fontBase}/Pretendard-${file}.woff2)`, { weight: String(w) });

@@ -4,7 +4,7 @@
 // - 사용: node src/publish.js [--only=youtube,instagram]
 const fs = require('fs');
 const path = require('path');
-const { env, settings, RUN_DATE, dataDir, outDir, setLogFile, log, readJson, writeJson, main, mask, ROOT } = require('./lib/common');
+const { env, settings, RUN_DATE, dataDir, outDir, setLogFile, log, readJson, writeJson, main, mask, ROOT , dataRoot } = require('./lib/common');
 
 const uploaders = { youtube: require('./upload/youtube'), instagram: require('./upload/instagram'), tiktok: require('./upload/tiktok') };
 
@@ -70,9 +70,9 @@ async function publish() {
     writeJson(statePath, state);
   }
   writeJson(statePath, state);
-  const hist = readJson(path.join(ROOT, 'data', 'upload-history.json'), {});
+  const hist = readJson(path.join(dataRoot, 'upload-history.json'), {});
   hist[RUN_DATE] = Object.fromEntries(Object.entries(state).map(([k, v]) => [k, v.status]));
-  writeJson(path.join(ROOT, 'data', 'upload-history.json'), hist);
+  writeJson(path.join(dataRoot, 'upload-history.json'), hist);
   if (failed) throw new Error(`${failed}개 플랫폼 게시 실패. 다음 실행 때 실패한 곳만 재시도합니다.`);
   log('✅ 게시 단계 완료');
 }

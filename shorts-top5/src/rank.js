@@ -1,9 +1,9 @@
 // 3단계: 인기 지수 = 조회수 ÷ 구독자 수 → data/<날짜>/ranking.json
 const path = require('path');
-const { settings, RUN_DATE, dataDir, setLogFile, log, readJson, writeJson, main, ROOT } = require('./lib/common');
+const { settings, RUN_DATE, dataDir, setLogFile, log, readJson, writeJson, main, ROOT , dataRoot } = require('./lib/common');
 
 const R = settings.rank;
-const USED = path.join(ROOT, 'data', 'featured-videos.json'); // 이미 소개한 영상 기록
+const USED = path.join(dataRoot, 'featured-videos.json'); // 이미 소개한 영상 기록
 
 // 영상 제목을 화면용으로 정리: 해시태그·이모지·괄호 군더더기 제거 후 길면 단어 단위로 자름
 function displayTitle(t, max = 30) {
@@ -41,7 +41,8 @@ function rank() {
   }
 
   // 한국어 우선 → 인기 지수 → 조회수 순
-  scored.sort((a, b) => (b.korean - a.korean) || (b.popularityIndex - a.popularityIndex) || (b.views - a.views));
+  const pk = R.preferKorean === false ? 0 : 1;
+  scored.sort((a, b) => pk * (b.korean - a.korean) || (b.popularityIndex - a.popularityIndex) || (b.views - a.views));
 
   const picked = [];
   const channels = new Set();
