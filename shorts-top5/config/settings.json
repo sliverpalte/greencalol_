@@ -1,0 +1,50 @@
+{
+  "_설명": "여기 값만 바꾸면 동작이 바뀝니다. 비밀값(API 키)은 절대 여기에 넣지 마세요.",
+  "collect": {
+    "minViews": 200000,
+    "searchWindowsHours": [48, 72],
+    "regionCode": "KR",
+    "relevanceLanguage": "ko",
+    "koreanOnly": false,
+    "maxShortDurationSec": 180,
+    "verifyShortsUrl": true,
+    "searchQueries": ["", "#shorts", "쇼츠"],
+    "pagesPerQuery": 2,
+    "maxSearchCallsPerRun": 8
+  },
+  "rank": {
+    "topN": 5,
+    "minSubscribers": 1000,
+    "excludeHiddenSubscribers": true,
+    "skipPreviouslyFeatured": true
+  },
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "durationSec": 30,
+    "crf": 20,
+    "accentColor": "#FF3B5C",
+    "accountName": "@오늘의터진쇼츠",
+    "blurThumbnailBackground": true,
+    "music": {
+      "file": "assets/music/bgm.mp3",
+      "licenseFile": "assets/music/LICENSE.txt",
+      "volume": 0.6
+    }
+  },
+  "meta": {
+    "useClaudeApi": false,
+    "claudeModel": "claude-haiku-5-5",
+    "hashtags": {
+      "youtube": ["#shorts", "#쇼츠", "#인기쇼츠", "#TOP5"],
+      "instagram": ["#릴스", "#쇼츠추천", "#인기영상", "#오늘의TOP5", "#유튜브쇼츠"],
+      "tiktok": ["#fyp", "#쇼츠", "#인기영상", "#TOP5"]
+    }
+  },
+  "upload": {
+    "platforms": ["youtube", "instagram", "tiktok"],
+    "maxAttempts": 3,
+    "youtubePrivacy": "public"
+  }
+}
