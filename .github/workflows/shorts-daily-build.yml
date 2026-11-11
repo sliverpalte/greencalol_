@@ -52,8 +52,9 @@ jobs:
           cache: npm
           cache-dependency-path: shorts-top5/package-lock.json
       - name: 프로그램 설치 (FFmpeg, Chromium)
+        timeout-minutes: 12
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          command -v ffmpeg >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
           npm ci
           npx playwright install --with-deps chromium
       - name: 날짜 (KST)
