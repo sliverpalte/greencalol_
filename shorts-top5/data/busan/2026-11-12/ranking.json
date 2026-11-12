@@ -1,0 +1,141 @@
+{
+  "date": "2026-11-12",
+  "isSample": false,
+  "windowHours": 168,
+  "formula": "인기 지수 = 조회수 ÷ 구독자 수",
+  "count": 5,
+  "top": [
+    {
+      "rank": 1,
+      "videoId": "jBxjlFxSuf0",
+      "url": "https://www.youtube.com/shorts/jBxjlFxSuf0",
+      "title": "#부산 #food #한국의맛 #koreanfood #foodie #여고 #cooking #부산맛집",
+      "channelId": "UCk8OJFM7EdlvWV39bmOv23w",
+      "channelTitle": "티처리🩷",
+      "channelHandle": "@티처리-w7m",
+      "publishedAt": "2026-11-06T13:52:09Z",
+      "durationSec": 24,
+      "views": 78737,
+      "likes": 727,
+      "subscribers": 937,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/jBxjlFxSuf0/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 84,
+      "displayTitle": "#부산 #food #한국의맛 #koreanfood…"
+    },
+    {
+      "rank": 2,
+      "videoId": "KHlOBuxP7q4",
+      "url": "https://www.youtube.com/shorts/KHlOBuxP7q4",
+      "title": "부산 사람이 꼽은 극한 버스 2탄",
+      "channelId": "UCksVOoemKLbuZBcm04SGfiA",
+      "channelTitle": "잘보면한국은",
+      "channelHandle": "@잘보면한국은",
+      "publishedAt": "2026-11-09T11:00:09Z",
+      "durationSec": 49,
+      "views": 302466,
+      "likes": 3600,
+      "subscribers": 5500,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/KHlOBuxP7q4/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 55,
+      "displayTitle": "부산 사람이 꼽은 극한 버스 2탄"
+    },
+    {
+      "rank": 3,
+      "videoId": "mk5CmLHrohg",
+      "url": "https://www.youtube.com/shorts/mk5CmLHrohg",
+      "title": "🎆 2026 부산불꽃축제 오후 6시 현재 | 2026 Busan Fireworks Festival 6:00 PM",
+      "channelId": "UCaIBImt78qTxzsHgPufCRRg",
+      "channelTitle": "Korean Zorba",
+      "channelHandle": "@koreanzorba",
+      "publishedAt": "2026-11-07T09:09:01Z",
+      "durationSec": 21,
+      "views": 131095,
+      "likes": 836,
+      "subscribers": 3270,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/mk5CmLHrohg/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 40.1,
+      "displayTitle": "2026 부산불꽃축제 오후 6시 현재"
+    },
+    {
+      "rank": 4,
+      "videoId": "06Pxq2fiLc4",
+      "url": "https://www.youtube.com/shorts/06Pxq2fiLc4",
+      "title": "서울 상경한 부산 사람들 특징",
+      "channelId": "UCDN9gQk4TwwE8e2HfFvpnkA",
+      "channelTitle": "부산핫플",
+      "channelHandle": "@busanhotple",
+      "publishedAt": "2026-11-05T01:00:22Z",
+      "durationSec": 27,
+      "views": 204786,
+      "likes": 2629,
+      "subscribers": 6220,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/06Pxq2fiLc4/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 32.9,
+      "displayTitle": "서울 상경한 부산 사람들 특징"
+    },
+    {
+      "rank": 5,
+      "videoId": "rD62o3xzhEY",
+      "url": "https://www.youtube.com/shorts/rD62o3xzhEY",
+      "title": "\"60대인 줄 알았는데 여든여덟이라고요?\" 부산 첫날 길에서 낯선 어르신에게 손 꽉 잡힌 영국 커플",
+      "channelId": "UCFgJtIU-8vx0gKKENWSPRTQ",
+      "channelTitle": "방구석차오름",
+      "channelHandle": "@방구석차오름",
+      "publishedAt": "2026-11-07T05:00:25Z",
+      "durationSec": 45,
+      "views": 19251,
+      "likes": 108,
+      "subscribers": 1040,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/rD62o3xzhEY/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 18.5,
+      "displayTitle": "\"60대인 줄 알았는데 여든여덟이라고요?\" 부산 첫날…"
+    }
+  ],
+  "excluded": [
+    {
+      "videoId": "tUsad6p0pqM",
+      "channelTitle": "가보자곰",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "gVJC7hGALic",
+      "channelTitle": "돈 되는 동네",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "B5Dq1LNjU2I",
+      "channelTitle": "건설 미스터리",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "9kX3MebX-uA",
+      "channelTitle": "알리발코니allibalcony",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "c_xrC4lLFVw",
+      "channelTitle": "티처리🩷",
+      "reason": "같은 채널 중복"
+    },
+    {
+      "videoId": "1e_xxB0N0yU",
+      "channelTitle": "부산핫플",
+      "reason": "같은 채널 중복"
+    }
+  ]
+}
