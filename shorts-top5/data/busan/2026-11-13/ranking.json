@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-13",
+  "isSample": false,
+  "windowHours": 168,
+  "formula": "인기 지수 = 조회수 ÷ 구독자 수",
+  "count": 5,
+  "top": [
+    {
+      "rank": 1,
+      "videoId": "z8ro5soBG-0",
+      "url": "https://www.youtube.com/shorts/z8ro5soBG-0",
+      "title": "#부산 #food #여고 #맛집 #한국의맛 #koreanfood #cooking #🦞",
+      "channelId": "UCk8OJFM7EdlvWV39bmOv23w",
+      "channelTitle": "티처리🩷",
+      "channelHandle": "@티처리-w7m",
+      "publishedAt": "2026-11-11T11:17:33Z",
+      "durationSec": 17,
+      "views": 94480,
+      "likes": 935,
+      "subscribers": 981,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/z8ro5soBG-0/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 96.3,
+      "displayTitle": "#부산 #food #여고 #맛집 #한국의맛…"
+    },
+    {
+      "rank": 2,
+      "videoId": "1e_xxB0N0yU",
+      "url": "https://www.youtube.com/shorts/1e_xxB0N0yU",
+      "title": "부산 사람들만 다르게 부른다는 이름",
+      "channelId": "UCDN9gQk4TwwE8e2HfFvpnkA",
+      "channelTitle": "부산핫플",
+      "channelHandle": "@busanhotple",
+      "publishedAt": "2026-11-09T01:00:38Z",
+      "durationSec": 23,
+      "views": 169817,
+      "likes": 1051,
+      "subscribers": 6240,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/1e_xxB0N0yU/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 27.2,
+      "displayTitle": "부산 사람들만 다르게 부른다는 이름"
+    },
+    {
+      "rank": 3,
+      "videoId": "BUeyWpVuNoc",
+      "url": "https://www.youtube.com/shorts/BUeyWpVuNoc",
+      "title": "굴시즌 산더미 굴 포차를 놓치면 큰일나는대부산 유일한 포차",
+      "channelId": "UCaDa46yh9e725DqGNyWzT1w",
+      "channelTitle": "시장정복",
+      "channelHandle": "@시장정복",
+      "publishedAt": "2026-11-11T02:37:04Z",
+      "durationSec": 108,
+      "views": 61303,
+      "likes": 420,
+      "subscribers": 2790,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/BUeyWpVuNoc/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 22,
+      "displayTitle": "굴시즌 산더미 굴 포차를 놓치면 큰일나는대부산 유일한…"
+    },
+    {
+      "rank": 4,
+      "videoId": "PDVMQVaNNsk",
+      "url": "https://www.youtube.com/shorts/PDVMQVaNNsk",
+      "title": "영국에선 꿈도 못 꾼다는 한국 여행 일주일 #shorts",
+      "channelId": "UCSK3Ur083c01XNp-ySU6XjA",
+      "channelTitle": "한류돋보기",
+      "channelHandle": "@k_dotbogi",
+      "publishedAt": "2026-11-09T05:18:19Z",
+      "durationSec": 56,
+      "views": 33619,
+      "likes": 466,
+      "subscribers": 1530,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/PDVMQVaNNsk/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 22,
+      "displayTitle": "영국에선 꿈도 못 꾼다는 한국 여행 일주일"
+    },
+    {
+      "rank": 5,
+      "videoId": "OIzpctB333I",
+      "url": "https://www.youtube.com/shorts/OIzpctB333I",
+      "title": "부산 깡통시장 아이언맨 마시멜로",
+      "channelId": "UC4bNn3K-ivge2a_etU2jP9A",
+      "channelTitle": "리얼현장 ",
+      "channelHandle": "@real_street_eat",
+      "publishedAt": "2026-11-08T11:00:20Z",
+      "durationSec": 34,
+      "views": 385437,
+      "likes": 3838,
+      "subscribers": 19300,
+      "subscribersHidden": false,
+      "thumbnail": "https://i.ytimg.com/vi/OIzpctB333I/maxresdefault.jpg",
+      "korean": true,
+      "shortsCheck": "shorts",
+      "popularityIndex": 20,
+      "displayTitle": "부산 깡통시장 아이언맨 마시멜로"
+    }
+  ],
+  "excluded": [
+    {
+      "videoId": "tUsad6p0pqM",
+      "channelTitle": "가보자곰",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "KHlOBuxP7q4",
+      "channelTitle": "잘보면한국은",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "mk5CmLHrohg",
+      "channelTitle": "Korean Zorba",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "jBxjlFxSuf0",
+      "channelTitle": "티처리🩷",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "7pcK6Fw-A-w",
+      "channelTitle": "반전한국",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "B5Dq1LNjU2I",
+      "channelTitle": "건설 미스터리",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "gVJC7hGALic",
+      "channelTitle": "돈 되는 동네",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "9kX3MebX-uA",
+      "channelTitle": "알리발코니allibalcony",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "rD62o3xzhEY",
+      "channelTitle": "방구석차오름",
+      "reason": "이미 소개한 영상"
+    },
+    {
+      "videoId": "ikRJ9F1iIn4",
+      "channelTitle": "돈 되는 동네",
+      "reason": "구독자 500명 미만(지수 왜곡 방지)"
+    },
+    {
+      "videoId": "EmaHrZ3ebqo",
+      "channelTitle": "티처리🩷",
+      "reason": "같은 채널 중복"
+    }
+  ]
+}
