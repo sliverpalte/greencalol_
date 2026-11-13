@@ -22,5 +22,13 @@
       "videos": 5,
       "channels": 1
     }
+  },
+  "2026-11-14": {
+    "youtubeUnits": 506,
+    "calls": {
+      "search": 5,
+      "videos": 5,
+      "channels": 1
+    }
   }
 }
