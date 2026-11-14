@@ -52,10 +52,12 @@ jobs:
           cache: npm
           cache-dependency-path: shorts-top5/package-lock.json
       - name: 프로그램 설치 (FFmpeg, Chromium)
+        timeout-minutes: 12
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          command -v ffmpeg >/dev/null || timeout 300 sh -c 'sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg'
           npm ci
-          npx playwright install --with-deps chromium
+          # 시스템 패키지 설치가 멈추는 경우가 있어 5분 제한 → 실패하면 브라우저만 설치
+          timeout 300 npx playwright install --with-deps chromium || npx playwright install chromium
       - name: 날짜 (KST)
         run: echo "RUN_DATE=$(TZ=Asia/Seoul date +%F)" >> "$GITHUB_ENV"
       - name: 수집 → 순위 → 문구 → 영상
